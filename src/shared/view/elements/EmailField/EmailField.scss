@@ -1,0 +1,28 @@
+.email-field {
+  position: relative;
+  display: block;
+
+  &__input {
+    padding: 11px;
+    width: 340px;
+    height: 46px;
+    border: 0.5px solid #b3b9d1;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  &__title {
+    margin: 0 0 10px 0;
+    font-weight: normal;
+    font-size: 16px;
+  }
+
+  &__error-message {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0 0 10px 0;
+    color: #e31e24;
+    font-size: 9px;
+  }
+}
