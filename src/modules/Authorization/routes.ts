@@ -5,6 +5,5 @@ export const routes = buildRouteTree({
     restore: null,
     signIn: null,
     signUp: null,
-    account: null,
   },
 });

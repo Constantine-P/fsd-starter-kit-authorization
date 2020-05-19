@@ -7,12 +7,17 @@ import { EmailField, PasswordField, Button, Checkbox } from 'shared/view/element
 
 const b = block('sign-up-card');
 
+interface IProps {
+  onClick: (email: string, password: string) => void;
+  // errorMessage: string;
+}
+
 interface IState {
   email: string;
   password: string;
 }
 
-class SignUpCard extends React.Component {
+class SignUpCard extends React.Component<IProps> {
   state: IState = {
     email: '',
     password: '',
@@ -21,7 +26,7 @@ class SignUpCard extends React.Component {
   render() {
     const { email, password } = this.state;
     return (
-      <form className={b()}>
+      <form className={b()} onSubmit={this.onSubmit}>
         <NavLink className={b('sign-in-link')} to="/authorization/signIn">Войти ➞</NavLink>
         <div className={b('content')}>
 
@@ -32,7 +37,7 @@ class SignUpCard extends React.Component {
           </div>
 
           <div className={b('input')}>
-            <PasswordField value={password} onChange={this.onChangePassword} />
+            <PasswordField value={password} onChange={this.onChangePassword} showRequirements />
           </div>
 
           <div className={b('submit-button')}>
@@ -65,6 +70,14 @@ class SignUpCard extends React.Component {
     this.setState({
       password: value,
     });
+  };
+
+  onSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    const { onClick } = this.props;
+    const { email, password } = this.state;
+    // console.log('onSubmit');
+    onClick(email, password);
   };
 }
 

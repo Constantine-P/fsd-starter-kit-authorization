@@ -235,7 +235,7 @@ export const commonConfig: webpack.Configuration = {
     hot: withHot,
     contentBase: path.resolve('..', 'build'),
     host: '0.0.0.0',
-    port: 8080,
+    port: 8081,
     inline: true,
     lazy: false,
     historyApiFallback: true,

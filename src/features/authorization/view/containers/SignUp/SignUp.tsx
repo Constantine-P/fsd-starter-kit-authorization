@@ -51,14 +51,17 @@ class SignUpComponent extends React.Component<IProps> {
 
   public render() {
     return (
-      <SignUpCard />
+      <SignUpCard
+        onClick={this.handleSignUp}
+      />
     );
   }
 
-  // private handleSignUp(email: string, password: string) {
-  //   const { signUpUser } = this.props;
-  //   signUpUser({ email, password });
-  // }
+  private handleSignUp(email: string, password: string) {
+    const { signUp } = this.props;
+    signUp({ email, password });
+    // console.log('signUp', signUp({ email, password }));
+  }
 }
 
 const SignUp = connect(mapState, mapDispatch)(SignUpComponent);

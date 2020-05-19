@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { routes } from 'modules/routes';
 import { IModule } from 'shared/types/app';
 
-import { SignUpLayout } from './view/components';
+import { SignUpLayout, SignInLayout, RestorePasswordLayout } from './view/components';
 
 const Authorization: IModule = {
   getRoutes() {
@@ -18,6 +18,16 @@ const Authorization: IModule = {
             key={routes.authorization.signUp.getElementKey()}
             path={routes.authorization.signUp.getRoutePath()}
             component={SignUpLayout}
+          />
+          <Route
+            key={routes.authorization.signIn.getElementKey()}
+            path={routes.authorization.signIn.getRoutePath()}
+            component={SignInLayout}
+          />
+          <Route
+            key={routes.authorization.restore.getElementKey()}
+            path={routes.authorization.restore.getRoutePath()}
+            component={RestorePasswordLayout}
           />
         </Switch>
       </Route>

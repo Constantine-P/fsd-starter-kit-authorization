@@ -1,56 +1,45 @@
-// import { put, call, all, takeLatest } from 'redux-saga/effects';
-// import { SagaIterator } from 'redux-saga';
-//
-// import { IDependencies } from 'shared/types/app';
-// import { IDetailedGithubUser } from 'shared/types/models';
-// import { IUsersSearchResults } from 'shared/types/githubSearch';
-// import { getErrorMsg } from 'shared/helpers';
-// import { actionCreators as notificationActionCreators } from 'services/notification';
-//
-// import * as NS from '../namespace';
-// import * as actionCreators from './actionCreators';
-//
-// function getSaga(deps: IDependencies) {
-//   const searchUserType: NS.ISearchUsers['type'] = 'USERS_SEARCH:SEARCH_USERS';
-//   const loadUserDetailsType: NS.ILoadUserDetails['type'] = 'USERS_SEARCH:LOAD_USER_DETAILS';
-//   return function* saga(): SagaIterator {
-//     yield all([
-//       takeLatest(searchUserType, executeSearchUsers, deps),
-//       takeLatest(loadUserDetailsType, executeLoadUserDetails, deps),
-//     ]);
-//   };
-// }
-//
-// function* executeSearchUsers({ api }: IDependencies, { payload }: NS.ISearchUsers) {
-//   try {
-//     const { searchOptions, page } = payload;
-//     const { searchString, ...filters } = searchOptions;
-//     const searchUsersResults: IUsersSearchResults = yield call(
-//       api.searchUsers,
-//       searchString, filters,
-//       page,
-//     );
-//     yield put(actionCreators.searchUsersSuccess({ ...searchUsersResults, page }));
-//     if (searchUsersResults.data.length === 0) {
-//       yield put(notificationActionCreators.setNotification({ kind: 'error', text: 'No users found :(' }));
-//     }
-//   } catch (error) {
-//     const errorMsg = getErrorMsg(error);
-//     yield put(actionCreators.searchUsersFail(errorMsg));
-//     yield put(notificationActionCreators.setNotification({ kind: 'error', text: errorMsg }));
-//   }
-// }
-//
-// function* executeLoadUserDetails({ api }: IDependencies, { payload }: NS.ILoadUserDetails) {
-//   try {
-//     yield put(actionCreators.resetUserDetails());
-//     const userDetails: IDetailedGithubUser = yield call(api.loadUserDetails, payload);
-//     yield put(actionCreators.loadUserDetailsSuccess(userDetails));
-//   } catch (error) {
-//     const errorMsg = getErrorMsg(error);
-//     yield put(actionCreators.loadUserDetailsFail(errorMsg));
-//     yield put(notificationActionCreators.setNotification({ kind: 'error', text: errorMsg }));
-//   }
-// }
-//
-// export { getSaga };
+import { SagaIterator } from 'redux-saga';
+import { put, call, takeLatest } from 'redux-saga/effects';
+
+import { IDependencies } from 'shared/types/app';
+
+import * as NS from '../namespace';
+import * as actionCreators from './actionCreators';
+
+interface IResponse {
+  user: {email: string}
+}
+
+function getSaga(deps: IDependencies) {
+  const signUpType: NS.ISignUp['type'] = 'AUTHORIZATION:SIGN_UP_USER';
+  const signInType: NS.ISignIn['type'] = 'AUTHORIZATION:SIGN_IN_USER';
+
+  return function* saga(): SagaIterator {
+    yield takeLatest(signUpType, executeSignUp, deps);
+    yield takeLatest(signInType, executeSignIn, deps);
+  };
+}
+
+function* executeSignUp({ api }: IDependencies, { payload }: NS.ISignIn) {
+  try {
+    const { email, password } = payload;
+    const response: IResponse = yield call(api.signUp, email, password);
+    const { user } = response;
+    yield put(actionCreators.signUpSuccess(user.email));
+  } catch (error) {
+    yield put(actionCreators.signUpFail(error));
+  }
+}
+
+function* executeSignIn({ api }: IDependencies, { payload }: NS.ISignIn) {
+  try {
+    const { email, password } = payload;
+    const response: IResponse = yield call(api.signIn, email, password);
+    const { user } = response;
+    yield put(actionCreators.signInSuccess(user.email));
+  } catch (error) {
+    yield put(actionCreators.signInFail(error));
+  }
+}
+
+export { getSaga };

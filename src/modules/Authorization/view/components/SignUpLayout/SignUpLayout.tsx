@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 
 import * as features from 'features';
 
-import { routes } from '../../../routes';
+import { routes } from '../../../../Profile/routes';
 // import { withAsyncFeatures } from 'core';
 import { withAsyncFeatures } from '../../../../../core';
 import { Layout } from '../../../../shared';
@@ -43,7 +43,7 @@ class SignUpLayoutComponent extends React.Component<IProps> {
   @autobind
   redirectToAccount(): void {
     const { history } = this.props;
-    history.push(routes.authorization.account.getRedirectPath());
+    history.push(routes.profile.getRedirectPath());
   }
 }
 

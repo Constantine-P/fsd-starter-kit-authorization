@@ -1,6 +1,8 @@
 import React from 'react';
 import block from 'bem-cn';
 
+import { isEmailValid } from '../../../validators';
+
 import './EmailField.scss';
 
 const b = block('email-field');
@@ -12,16 +14,18 @@ interface IProps {
 
 interface IState {
   isValid: boolean;
+  message: string;
 }
 
 class EmailField extends React.Component<IProps, IState> {
   state: IState = {
     isValid: true,
+    message: '',
   };
 
   render() {
     const { value } = this.props;
-    const { isValid } = this.state;
+    const { isValid, message } = this.state;
     return (
       // eslint-disable-next-line jsx-a11y/label-has-associated-control
       <label className={b()}>
@@ -31,7 +35,7 @@ class EmailField extends React.Component<IProps, IState> {
             ? null
             : (
               <span className={b('error-message')}>
-                Email должен содержать «@»
+                {message}
               </span>
             )
         }
@@ -42,6 +46,7 @@ class EmailField extends React.Component<IProps, IState> {
           value={value}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          required
         />
       </label>
     );
@@ -49,13 +54,14 @@ class EmailField extends React.Component<IProps, IState> {
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { onChange } = this.props;
-    const target = event.target.value;
-    onChange(target);
+    const { value } = event.target;
+    onChange(value);
+    this.setState(isEmailValid(value));
   };
 
   handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isValid = !(event.target.value.indexOf('@') === -1);
-    this.setState({ isValid });
+    const { value } = event.target;
+    this.setState(isEmailValid(value));
   };
 }
 
