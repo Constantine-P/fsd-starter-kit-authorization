@@ -23,6 +23,7 @@ interface IStateProps {
 }
 
 function mapState(state: IAppReduxState): IStateProps {
+  console.log('user : ', selectors.selectUser(state));
   return {
     error: selectors.selectCommunication(state, 'signUp').error,
     user: selectors.selectUser(state),
@@ -52,6 +53,7 @@ class SignUpComponent extends React.Component<IProps> {
   public render() {
     return (
       <SignUpCard
+        user={this.props.user}
         onClick={this.handleSignUp}
       />
     );

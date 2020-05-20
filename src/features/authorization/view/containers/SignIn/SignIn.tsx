@@ -11,10 +11,14 @@ import { SignInCard } from '../../components';
 interface IOwnProps {
   signIn: (object: {email: string, password: string}) => void;
   onSuccessSignIn: () => void;
+  setUser: (user: string) => void;
+  stateChanged: (object: {setUser: (user: string) => void}) => void;
 }
 
 const mapDispatch = {
   signIn: actionCreators.signIn,
+  setUser: actionCreators.setUser,
+  stateChanged: actionCreators.stateChanged,
 };
 
 interface IStateProps {
@@ -34,7 +38,8 @@ type IProps = IOwnProps & IStateProps;
 @autobind
 class SignInComponent extends React.Component<IProps> {
   componentDidMount() {
-    const { user, onSuccessSignIn } = this.props;
+    const { user, onSuccessSignIn, stateChanged, setUser } = this.props;
+    stateChanged({ setUser });
 
     if (user) {
       onSuccessSignIn();

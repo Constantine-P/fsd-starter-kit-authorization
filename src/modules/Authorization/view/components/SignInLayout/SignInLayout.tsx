@@ -6,7 +6,7 @@ import { autobind } from 'core-decorators';
 import * as features from 'features';
 
 // import { routes } from '../../../routes';
-import { routes } from '../../../../Profile/routes';
+// import { routes } from '../../../../Profile/routes';
 // import { withAsyncFeatures } from 'core';
 import { withAsyncFeatures } from '../../../../../core';
 import { Layout } from '../../../../shared';
@@ -44,8 +44,8 @@ class SignInLayoutComponent extends React.Component<IProps> {
   @autobind
   redirectToProfile(): void {
     console.log('Sign in redirectToProfile');
-    const { history } = this.props;
-    history.push(routes.profile.getRedirectPath());
+    // const { history } = this.props;
+    // history.push(routes.profile.getRedirectPath());
   }
 }
 

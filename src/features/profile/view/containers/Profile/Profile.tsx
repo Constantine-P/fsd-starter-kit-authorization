@@ -2,21 +2,25 @@ import React from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import block from 'bem-cn';
+import { NavLink } from 'react-router-dom';
 
 import { IAppReduxState } from 'shared/types/app';
 import { IProfile } from 'shared/types/models';
 
 import { selectors } from '../../../redux';
+import { selectors as authSelectors } from '../../../../authorization/redux';
 
 const b = block('profile');
 
 interface IStateProps {
   profile: IProfile;
+  user: string;
 }
 
 function mapState(state: IAppReduxState): IStateProps {
   return {
     profile: selectors.selectProfile(state),
+    user: authSelectors.selectUser(state),
   };
 }
 
@@ -33,6 +37,7 @@ class ProfileComponent extends React.Component<IProps> {
         <div className={b('nickname')}>{`Погоняло:${nickname}`}</div>
         <div className={b('age')}>{`Возраст:${age}`}</div>
         <div className={b('bio')}>{`Житие:${bio}`}</div>
+        <NavLink className={b('sign-in-link')} to="/authorization/signIn">Войти ➞</NavLink>
       </article>
     );
   }

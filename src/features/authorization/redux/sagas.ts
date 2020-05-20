@@ -13,10 +13,12 @@ interface IResponse {
 function getSaga(deps: IDependencies) {
   const signUpType: NS.ISignUp['type'] = 'AUTHORIZATION:SIGN_UP_USER';
   const signInType: NS.ISignIn['type'] = 'AUTHORIZATION:SIGN_IN_USER';
+  const stateChangedType: NS.IStateChanged['type'] = 'AUTHORIZATION:STATE_CHANGED';
 
   return function* saga(): SagaIterator {
     yield takeLatest(signUpType, executeSignUp, deps);
     yield takeLatest(signInType, executeSignIn, deps);
+    yield takeLatest(stateChangedType, executeStateChanged, deps);
   };
 }
 
@@ -39,6 +41,16 @@ function* executeSignIn({ api }: IDependencies, { payload }: NS.ISignIn) {
     yield put(actionCreators.signInSuccess(user.email));
   } catch (error) {
     yield put(actionCreators.signInFail(error));
+  }
+}
+
+function* executeStateChanged({ api }: IDependencies, { payload }: NS.IStateChanged) {
+  try {
+    const { setUser } = payload;
+    yield call(api.stateChanged, setUser);
+    yield put(actionCreators.stateChangedSuccess());
+  } catch (error) {
+    yield put(actionCreators.stateChangedFail(error));
   }
 }
 

@@ -1,5 +1,5 @@
-// import * as NS from '../../namespace';
-//
-// export function resetUserDetails(): NS.IResetUserDetails {
-//   return { type: 'USERS_SEARCH:RESET_USER_DETAILS' };
-// }
+import * as NS from '../../namespace';
+
+export function setUser(user: string): NS.ISetUser {
+  return { type: 'AUTHORIZATION:SET_USER', payload: user };
+}

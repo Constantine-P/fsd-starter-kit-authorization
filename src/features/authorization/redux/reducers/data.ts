@@ -4,7 +4,12 @@ import { initial } from '../initial';
 function dataReducer(state: NS.IReduxState['data'] = initial.data, action: NS.IAction): NS.IReduxState['data'] {
   switch (action.type) {
     case 'AUTHORIZATION:SIGN_UP_SUCCESS': {
-      // const { data, totalResults } = action.payload;
+      return {
+        ...state,
+        user: action.payload,
+      };
+    }
+    case 'AUTHORIZATION:SET_USER': {
       return {
         ...state,
         user: action.payload,

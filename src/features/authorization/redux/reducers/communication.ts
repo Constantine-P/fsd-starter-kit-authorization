@@ -17,4 +17,14 @@ export const communicationReducer = combineReducers<NS.IReduxState['communicatio
     'AUTHORIZATION:SIGN_IN_FAIL',
     initial.communication.signIn,
   ),
+  stateChanged: makeCommunicationReducer<
+  NS.IStateChanged,
+  NS.IStateChangedSuccess,
+  NS.IStateChangedFail
+  >(
+    'AUTHORIZATION:STATE_CHANGED',
+    'AUTHORIZATION:STATE_CHANGED_SUCCESS',
+    'AUTHORIZATION:STATE_CHANGED_FAIL',
+    initial.communication.stateChanged,
+  ),
 });

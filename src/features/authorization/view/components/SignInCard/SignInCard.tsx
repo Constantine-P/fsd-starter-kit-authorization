@@ -69,7 +69,6 @@ class SignInCard extends React.Component<IProps> {
     event.preventDefault();
     const { onClick } = this.props;
     const { email, password } = this.state;
-    // console.log('onSubmit');
     onClick(email, password);
   };
 }

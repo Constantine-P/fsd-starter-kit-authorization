@@ -22,6 +22,18 @@ class Api {
   public async signUp(email: string, password: string) {
     return firebase.auth().createUserWithEmailAndPassword(email, password);
   }
+
+  public async stateChanged(setUser: (user: string) => void) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user && user.email) {
+        setUser(user.email);
+        // eslint-disable-next-line no-console
+        // console.log('setUser(user.email)');
+      } else {
+        // clearUser();
+      }
+    });
+  }
 }
 
 export { Api };

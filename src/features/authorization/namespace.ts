@@ -7,6 +7,7 @@ export interface IReduxState {
   communication: {
     signUp: ICommunication;
     signIn: ICommunication;
+    stateChanged: ICommunication;
   };
 }
 
@@ -18,10 +19,20 @@ export type ISignIn = IAction<'AUTHORIZATION:SIGN_IN_USER', {email: string, pass
 export type ISignInSuccess = IAction<'AUTHORIZATION:SIGN_IN_SUCCESS', string>;
 export type ISignInFail = IPlainFailAction<'AUTHORIZATION:SIGN_IN_FAIL'>;
 
+export type ISetUser = IAction<'AUTHORIZATION:SET_USER', string>;
+
+export type IStateChanged = IAction<'AUTHORIZATION:STATE_CHANGED', {setUser: (user: string) => void}>;
+export type IStateChangedSuccess = IAction<'AUTHORIZATION:STATE_CHANGED_SUCCESS', void>;
+export type IStateChangedFail = IPlainFailAction<'AUTHORIZATION:STATE_CHANGED_FAIL'>;
+
 export type IAction =
   | ISignUp
   | ISignUpSuccess
   | ISignUpFail
   | ISignIn
   | ISignInSuccess
-  | ISignInFail;
+  | ISignInFail
+  | IStateChanged
+  | IStateChangedSuccess
+  | IStateChangedFail
+  | ISetUser;

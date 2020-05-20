@@ -9,6 +9,7 @@ const b = block('sign-up-card');
 
 interface IProps {
   onClick: (email: string, password: string) => void;
+  user: string;
   // errorMessage: string;
 }
 
@@ -55,6 +56,11 @@ class SignUpCard extends React.Component<IProps> {
             <Checkbox text="Я не хочу получать еженедельную рассылку с советами по поиску работы и новостях о самых востребованных профессиях" />
           </div>
 
+        </div>
+
+        <div className={b('submit-button')}>
+          {/* eslint-disable-next-line react/destructuring-assignment */}
+          {'user: ' + this.props.user}
         </div>
       </form>
     );
