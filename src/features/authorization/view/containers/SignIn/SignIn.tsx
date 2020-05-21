@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
@@ -16,9 +17,9 @@ interface IOwnProps {
 }
 
 const mapDispatch = {
-  signIn: actionCreators.signIn,
   setUser: actionCreators.setUser,
   stateChanged: actionCreators.stateChanged,
+  signIn: actionCreators.signIn,
 };
 
 interface IStateProps {
@@ -38,7 +39,9 @@ type IProps = IOwnProps & IStateProps;
 @autobind
 class SignInComponent extends React.Component<IProps> {
   componentDidMount() {
-    const { user, onSuccessSignIn, stateChanged, setUser } = this.props;
+    const {
+      user, onSuccessSignIn, stateChanged, setUser,
+    } = this.props;
     stateChanged({ setUser });
 
     if (user) {

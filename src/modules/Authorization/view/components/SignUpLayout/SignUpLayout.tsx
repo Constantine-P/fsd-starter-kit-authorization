@@ -1,7 +1,6 @@
 import React from 'react';
 import block from 'bem-cn';
 import { History } from 'history';
-import { autobind } from 'core-decorators';
 
 import * as features from 'features';
 
@@ -34,17 +33,16 @@ class SignUpLayoutComponent extends React.Component<IProps> {
     return (
       <Layout>
         <div className={b('inner')}>
-          <SignUp onSuccessSignUp={this.redirectToAccount} />
+          <SignUp onSuccessSignUp={this.redirectToProfile} />
         </div>
       </Layout>
     );
   }
 
-  @autobind
-  redirectToAccount(): void {
+  redirectToProfile = (): void => {
     const { history } = this.props;
     history.push(routes.profile.getRedirectPath());
-  }
+  };
 }
 
 const SignUpLayout = withAsyncFeatures({

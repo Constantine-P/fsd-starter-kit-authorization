@@ -9,6 +9,12 @@ function editReducer(state: NS.IReduxState['edit'] = initial.edit, action: NS.IA
         profile: action.payload,
       };
     }
+    case 'PROFILE:SET_USER': {
+      return {
+        ...state,
+        profile: { ...state.profile, name: action.payload },
+      };
+    }
     default:
       return state;
   }

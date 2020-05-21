@@ -1,6 +1,6 @@
 export interface IProfile {
-  age: number;
-  nickname: string;
-  name: string;
-  bio: string;
+  age: number | null;
+  nickname: string | null;
+  name: string | null;
+  bio: string | null;
 }

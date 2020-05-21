@@ -27,12 +27,14 @@ class Api {
     firebase.auth().onAuthStateChanged(user => {
       if (user && user.email) {
         setUser(user.email);
-        // eslint-disable-next-line no-console
-        // console.log('setUser(user.email)');
       } else {
-        // clearUser();
+        setUser('');
       }
     });
+  }
+
+  public async isSigned(): Promise<boolean> {
+    return !!firebase.auth().currentUser;
   }
 }
 

@@ -8,8 +8,3 @@ function selectFeatureState(state: IAppReduxState) {
 export function selectProfile(state: IAppReduxState): IProfile {
   return selectFeatureState(state).profile.edit.profile;
 }
-
-export function selectUser(state: IAppReduxState): string {
-  console.log('selectUser', { state });
-  return selectFeatureState(state).authorization.data.user;
-}

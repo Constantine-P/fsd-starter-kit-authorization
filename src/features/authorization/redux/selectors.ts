@@ -14,6 +14,5 @@ export function selectCommunication(
 }
 
 export function selectUser(state: IAppReduxState) {
-  // console.log('selectUser', { state });
   return selectFeatureState(state).data.user;
 }

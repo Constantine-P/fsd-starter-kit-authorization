@@ -1,12 +1,10 @@
 import React from 'react';
 import block from 'bem-cn';
 import { History } from 'history';
-import { autobind } from 'core-decorators';
 
 import * as features from 'features';
 
-// import { routes } from '../../../routes';
-// import { routes } from '../../../../Profile/routes';
+import { routes } from '../../../../Profile/routes';
 // import { withAsyncFeatures } from 'core';
 import { withAsyncFeatures } from '../../../../../core';
 import { Layout } from '../../../../shared';
@@ -41,12 +39,10 @@ class SignInLayoutComponent extends React.Component<IProps> {
     );
   }
 
-  @autobind
-  redirectToProfile(): void {
-    console.log('Sign in redirectToProfile');
-    // const { history } = this.props;
-    // history.push(routes.profile.getRedirectPath());
-  }
+  redirectToProfile = (): void => {
+    const { history } = this.props;
+    history.push(routes.profile.getRedirectPath());
+  };
 }
 
 const SignInLayout = withAsyncFeatures({

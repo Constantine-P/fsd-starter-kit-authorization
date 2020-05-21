@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
@@ -11,9 +12,13 @@ import { SignUpCard } from '../../components';
 interface IOwnProps {
   signUp: (object: {email: string, password: string}) => void;
   onSuccessSignUp: () => void;
+  setUser: (user: string) => void;
+  stateChanged: (object: {setUser: (user: string) => void}) => void;
 }
 
 const mapDispatch = {
+  setUser: actionCreators.setUser,
+  stateChanged: actionCreators.stateChanged,
   signUp: actionCreators.signUp,
 };
 
@@ -23,7 +28,6 @@ interface IStateProps {
 }
 
 function mapState(state: IAppReduxState): IStateProps {
-  console.log('user : ', selectors.selectUser(state));
   return {
     error: selectors.selectCommunication(state, 'signUp').error,
     user: selectors.selectUser(state),
@@ -35,7 +39,11 @@ type IProps = IOwnProps & IStateProps;
 @autobind
 class SignUpComponent extends React.Component<IProps> {
   componentDidMount() {
-    const { user, onSuccessSignUp } = this.props;
+    // console.log('sign-up---componentDidMount---', { user });
+    const {
+      user, onSuccessSignUp, stateChanged, setUser,
+    } = this.props;
+    stateChanged({ setUser });
 
     if (user) {
       onSuccessSignUp();
@@ -44,6 +52,7 @@ class SignUpComponent extends React.Component<IProps> {
 
   componentDidUpdate() {
     const { user, onSuccessSignUp } = this.props;
+    // console.log('sign-up---componentDidUpdate---', { user });
 
     if (user) {
       onSuccessSignUp();
@@ -53,7 +62,6 @@ class SignUpComponent extends React.Component<IProps> {
   public render() {
     return (
       <SignUpCard
-        user={this.props.user}
         onClick={this.handleSignUp}
       />
     );
