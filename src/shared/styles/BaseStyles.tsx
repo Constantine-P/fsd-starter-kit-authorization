@@ -6,12 +6,12 @@ import { rule } from 'shared/helpers/style';
 const styles = {
   '@global': rule({
     html: {
-      fontSize: 16, // TODO: use rems everywhere in the project
+      fontSize: 1, // TODO: use rems everywhere in the project
       fontFamily: 'Roboto, Arial, sans-serif',
     },
     body: {
       margin: 0,
-      fontSize: '1rem',
+      fontSize: '16rem',
       background: '#fff',
     },
     'html, body, #root': {

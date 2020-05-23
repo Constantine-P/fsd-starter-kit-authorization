@@ -1,28 +1,48 @@
+@import '../../../styles/variables';
+
 .email-field {
   position: relative;
   display: block;
 
   &__input {
-    padding: 11px;
-    width: 340px;
-    height: 46px;
-    border: 0.5px solid #b3b9d1;
-    border-radius: 4px;
-    font-size: 16px;
+    padding: 11rem;
+    width: 340rem;
+    height: 46rem;
+    border: 0.5rem solid map-get($colors, secondary);
+    border-radius: 4rem;
+    box-shadow: none;
+    color: map-get($colors, secondary);
+    font-size: 16rem;
+    transition: $anim-duration;
+
+    &:focus {
+      outline: none;
+      border: 0.5rem solid map-get($colors, main);
+      color: map-get($colors, main);
+    }
+
+    &_valid {
+      border: 0.5rem solid map-get($colors, valid) !important;
+    }
+
+    &_invalid {
+      border: 0.5rem solid map-get($colors, error) !important;
+    }
   }
 
   &__title {
-    margin: 0 0 10px 0;
+    margin: 0 0 10rem 0;
+    padding-left: 10rem;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 16rem;
   }
 
   &__error-message {
     position: absolute;
     top: 0;
     right: 0;
-    margin: 0 0 10px 0;
-    color: #e31e24;
-    font-size: 9px;
+    margin: 0 0 10rem 0;
+    color: map-get($colors, error);
+    font-size: 9rem;
   }
 }

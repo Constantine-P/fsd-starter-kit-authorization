@@ -6,5 +6,5 @@ function selectFeatureState(state: IAppReduxState) {
 }
 
 export function selectProfile(state: IAppReduxState): IProfile {
-  return selectFeatureState(state).profile.edit.profile;
+  return selectFeatureState(state).profile.profile;
 }

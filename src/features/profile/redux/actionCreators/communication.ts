@@ -22,13 +22,3 @@ export const {
   'PROFILE:SIGN_OUT_SUCCESS',
   'PROFILE:SIGN_OUT_FAIL',
 );
-
-export const {
-  execute: isSigned,
-  completed: isSignedSuccess,
-  failed: isSignedFail,
-} = makeCommunicationActionCreators<NS.IIsSigned, NS.IIsSignedSuccess, NS.IIsSignedFail>(
-  'PROFILE:IS_SIGNED',
-  'PROFILE:IS_SIGNED_SUCCESS',
-  'PROFILE:IS_SIGNED_FAIL',
-);

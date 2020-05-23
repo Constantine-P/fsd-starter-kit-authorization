@@ -11,8 +11,8 @@ interface IResponse {
 }
 
 function getSaga(deps: IDependencies) {
-  const signUpType: NS.ISignUp['type'] = 'AUTHORIZATION:SIGN_UP_USER';
-  const signInType: NS.ISignIn['type'] = 'AUTHORIZATION:SIGN_IN_USER';
+  const signUpType: NS.ISignUp['type'] = 'AUTHORIZATION:SIGN_UP';
+  const signInType: NS.ISignIn['type'] = 'AUTHORIZATION:SIGN_IN';
   const stateChangedType: NS.IStateChanged['type'] = 'AUTHORIZATION:STATE_CHANGED';
 
   return function* saga(): SagaIterator {

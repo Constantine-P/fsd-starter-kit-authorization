@@ -10,26 +10,17 @@ interface IProps {
   onClick?: () => void;
 }
 
-interface IState {
-
-}
-
-class Button extends React.Component<IProps> {
-  state: IState = {
-  };
-
-  render() {
-    const { value, onClick } = this.props;
-    return (
-      <button
-        className={b()}
-        type="submit"
-        onClick={onClick}
-      >
-        {value}
-      </button>
-    );
-  }
+function Button(props: IProps) {
+  const { value, onClick } = props;
+  return (
+    <button
+      className={b()}
+      type="submit"
+      onClick={onClick}
+    >
+      {value}
+    </button>
+  );
 }
 
 export { Button };

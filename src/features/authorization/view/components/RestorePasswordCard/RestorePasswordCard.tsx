@@ -11,7 +11,7 @@ interface IState {
   email: string;
 }
 
-class RestorePasswordCard extends React.Component {
+class RestorePasswordCard extends React.Component<{}, IState> {
   state: IState = {
     email: '',
   };
@@ -24,6 +24,7 @@ class RestorePasswordCard extends React.Component {
         <div className={b('content')}>
 
           <h1 className={b('title')}>Восстановить пароль</h1>
+
           <p className={b('description')}>Напомните нам вашу почту и мы пришлем новый пароль</p>
 
           <div className={b('input')}>

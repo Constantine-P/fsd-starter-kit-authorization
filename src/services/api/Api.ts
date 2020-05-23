@@ -32,10 +32,6 @@ class Api {
       }
     });
   }
-
-  public async isSigned(): Promise<boolean> {
-    return !!firebase.auth().currentUser;
-  }
 }
 
 export { Api };

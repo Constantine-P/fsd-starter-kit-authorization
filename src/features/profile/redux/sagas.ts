@@ -9,22 +9,11 @@ import * as actionCreators from './actionCreators';
 function getSaga(deps: IDependencies) {
   const stateChangedType: NS.IStateChanged['type'] = 'PROFILE:STATE_CHANGED';
   const signOutType: NS.ISignOut['type'] = 'PROFILE:SIGN_OUT';
-  const isSignedType: NS.IIsSigned['type'] = 'PROFILE:IS_SIGNED';
 
   return function* saga(): SagaIterator {
     yield takeLatest(stateChangedType, executeStateChanged, deps);
     yield takeLatest(signOutType, executeSignOut, deps);
-    yield takeLatest(isSignedType, executeIsSigned, deps);
   };
-}
-
-function* executeIsSigned({ api }: IDependencies) {
-  try {
-    yield call(api.isSigned);
-    yield put(actionCreators.isSignedSuccess());
-  } catch (error) {
-    yield put(actionCreators.isSignedFail(error));
-  }
 }
 
 function* executeStateChanged({ api }: IDependencies, { payload }: NS.IStateChanged) {

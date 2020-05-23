@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import block from 'bem-cn';
 import { connect } from 'react-redux';
@@ -53,28 +52,20 @@ class ProfileComponent extends React.Component<IProps> {
   }
 
   render() {
-    const { profile: { name, nickname, age, bio }, signOut } = this.props;
+    const { profile, signOut } = this.props;
 
     return (
       <article className={b()}>
         <h1 className={b('title')}>Профиль</h1>
         <table className={b('content')}>
-          <tr className={b('name')}>
-            <td className={b('content-cell')}>e-mail</td>
-            <td className={b('content-cell')}>{name}</td>
-          </tr>
-          <tr className={b('name')}>
-            <td className={b('content-cell')}>nickname</td>
-            <td className={b('content-cell')}>{nickname}</td>
-          </tr>
-          <tr className={b('name')}>
-            <td className={b('content-cell')}>age</td>
-            <td className={b('content-cell')}>{age}</td>
-          </tr>
-          <tr className={b('name')}>
-            <td className={b('content-cell')}>bio</td>
-            <td className={b('content-cell')}>{bio}</td>
-          </tr>
+          {
+            Object.keys(profile).map((item: keyof IProfile) => (
+              <tr>
+                <td className={b('content-cell')}>{item}</td>
+                <td className={b('content-cell')}>{profile[item]}</td>
+              </tr>
+            ))
+          }
         </table>
 
         <div className={b('sign-out-button')}>

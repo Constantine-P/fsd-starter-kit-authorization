@@ -1,13 +1,10 @@
-/* eslint-disable no-console */
 import React from 'react';
-import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 
 import { IAppReduxState } from 'shared/types/app';
 
 import { actionCreators, selectors } from '../../../redux';
 import { SignInCard } from '../../components';
-
 
 interface IOwnProps {
   signIn: (object: {email: string, password: string}) => void;
@@ -36,7 +33,6 @@ function mapState(state: IAppReduxState): IStateProps {
 
 type IProps = IOwnProps & IStateProps;
 
-@autobind
 class SignInComponent extends React.Component<IProps> {
   componentDidMount() {
     const {
@@ -44,31 +40,29 @@ class SignInComponent extends React.Component<IProps> {
     } = this.props;
     stateChanged({ setUser });
 
-    if (user) {
-      onSuccessSignIn();
-    }
+    if (user) onSuccessSignIn();
   }
 
   componentDidUpdate() {
-    const { user, onSuccessSignIn } = this.props;
+    const {
+      user, onSuccessSignIn,
+    } = this.props;
 
-    if (user) {
-      onSuccessSignIn();
-    }
+    if (user) onSuccessSignIn();
   }
 
   public render() {
     return (
       <SignInCard
-        onClick={this.handleSignIn}
+        onSubmit={this.handleSignIn}
       />
     );
   }
 
-  private handleSignIn(email: string, password: string) {
+  private handleSignIn = (email: string, password: string) => {
     const { signIn } = this.props;
     signIn({ email, password });
-  }
+  };
 }
 
 const SignIn = connect(mapState, mapDispatch)(SignInComponent);

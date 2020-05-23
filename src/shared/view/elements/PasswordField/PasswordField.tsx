@@ -9,24 +9,25 @@ const b = block('password-field');
 interface IProps {
   value: string;
   onChange: (value: string) => void;
-  showRequirements?: boolean;
+  setValidity?: (value: boolean | null) => void;
+  validate?: boolean;
 }
 
 interface IState {
   isPasswordHidden: boolean;
-  isValid: boolean;
+  isValid: boolean | null;
   message: string;
 }
 
 class PasswordField extends React.Component<IProps> {
   state: IState = {
     isPasswordHidden: true,
-    isValid: true,
+    isValid: null,
     message: '',
   };
 
   render() {
-    const { value, showRequirements } = this.props;
+    const { value, validate } = this.props;
     const { isPasswordHidden, isValid, message } = this.state;
     const requirements = [
       'Одна строчная буква ',
@@ -34,22 +35,25 @@ class PasswordField extends React.Component<IProps> {
       'Одна цифра',
       'Минимум 8 знаков',
     ];
+    // eslint-disable-next-line no-nested-ternary
+    const inputMode = (isValid === true && validate)
+      ? { valid: true }
+      : (isValid === false && validate)
+        ? { invalid: true }
+        : { invalid: false };
+
     return (
       // eslint-disable-next-line jsx-a11y/label-has-associated-control
       <label className={b()}>
         <h2 className={b('title')}>Password</h2>
         {
-          !isValid && showRequirements
-            ? (
-              <span className={b('error-message')}>
-                {message}
-              </span>
-            )
+          !isValid && validate
+            ? <span className={b('error-message')}>{message}</span>
             : null
         }
         <div className={b('content')}>
           <input
-            className={b('input')}
+            className={b('input', inputMode)}
             type={isPasswordHidden ? 'password' : 'text'}
             placeholder="******"
             value={value}
@@ -62,33 +66,35 @@ class PasswordField extends React.Component<IProps> {
             <input
               className={b('check')}
               type="checkbox"
-              onChange={this.onTogglePassword}
+              onChange={this.handlePasswordEyeToggle}
             />
             <div className={b('check-view')} />
             <span className={b('toggle-hint')} />
           </label>
         </div>
 
-        {showRequirements
-        && (
-          <ul className={b('requirements')}>
-            {requirements.map(requirement => (
-              <li className={b('requirement')}>{requirement}</li>
-            ))}
-          </ul>
-        )}
+        {
+          validate && (
+            <ul className={b('requirements')}>
+              {requirements.map(requirement => (
+                <li className={b('requirement')}>{requirement}</li>
+              ))}
+            </ul>
+          )
+        }
       </label>
     );
   }
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { onChange } = this.props;
+    const { onChange, setValidity } = this.props;
     const { value } = event.target;
     onChange(value);
     this.setState(isPasswordValid(value));
+    if (setValidity) setValidity(isPasswordValid(value).isValid);
   };
 
-  onTogglePassword = () => {
+  handlePasswordEyeToggle = () => {
     this.setState((prevState: IState) => (
       { isPasswordHidden: !prevState.isPasswordHidden }
     ));

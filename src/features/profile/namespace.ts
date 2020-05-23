@@ -2,9 +2,7 @@ import { IProfile } from 'shared/types/models';
 import { IAction, IPlainAction, IPlainFailAction, ICommunication } from 'shared/types/redux';
 
 export interface IReduxState {
-  edit: {
-    profile: IProfile;
-  };
+  profile: IProfile;
   communication: {
     stateChanged: ICommunication;
     signOut: ICommunication;
@@ -25,10 +23,6 @@ export type ISignOut = IPlainAction<'PROFILE:SIGN_OUT'>;
 export type ISignOutSuccess = IAction<'PROFILE:SIGN_OUT_SUCCESS', void>;
 export type ISignOutFail = IPlainFailAction<'PROFILE:SIGN_OUT_FAIL'>;
 
-export type IIsSigned = IPlainAction<'PROFILE:IS_SIGNED'>;
-export type IIsSignedSuccess = IAction<'PROFILE:IS_SIGNED_SUCCESS', void>;
-export type IIsSignedFail = IPlainFailAction<'PROFILE:IS_SIGNED_FAIL'>;
-
 export type IAction =
   ISaveProfile
   | IStateChanged
@@ -37,7 +31,4 @@ export type IAction =
   | ISignOut
   | ISignOutSuccess
   | ISignOutFail
-  | ISetUser
-  | IIsSigned
-  | IIsSignedSuccess
-  | IIsSignedFail;
+  | ISetUser;
