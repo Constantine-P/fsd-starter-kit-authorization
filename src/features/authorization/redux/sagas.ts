@@ -14,15 +14,17 @@ function getSaga(deps: IDependencies) {
   const signUpType: NS.ISignUp['type'] = 'AUTHORIZATION:SIGN_UP';
   const signInType: NS.ISignIn['type'] = 'AUTHORIZATION:SIGN_IN';
   const stateChangedType: NS.IStateChanged['type'] = 'AUTHORIZATION:STATE_CHANGED';
+  const resetPasswordType: NS.IResetPassword['type'] = 'AUTHORIZATION:RESET_PASSWORD';
 
   return function* saga(): SagaIterator {
     yield takeLatest(signUpType, executeSignUp, deps);
     yield takeLatest(signInType, executeSignIn, deps);
     yield takeLatest(stateChangedType, executeStateChanged, deps);
+    yield takeLatest(resetPasswordType, executeResetPassword, deps);
   };
 }
 
-function* executeSignUp({ api }: IDependencies, { payload }: NS.ISignIn) {
+function* executeSignUp({ api }: IDependencies, { payload }: NS.ISignUp) {
   try {
     const { email, password } = payload;
     const response: IResponse = yield call(api.signUp, email, password);
@@ -41,6 +43,16 @@ function* executeSignIn({ api }: IDependencies, { payload }: NS.ISignIn) {
     yield put(actionCreators.signInSuccess(user.email));
   } catch (error) {
     yield put(actionCreators.signInFail(error));
+  }
+}
+
+function* executeResetPassword({ api }: IDependencies, { payload }: NS.ISignIn) {
+  try {
+    const { email } = payload;
+    yield call(api.resetPassword, email);
+    yield put(actionCreators.resetPasswordSuccess());
+  } catch (error) {
+    yield put(actionCreators.resetPasswordFail(error));
   }
 }
 

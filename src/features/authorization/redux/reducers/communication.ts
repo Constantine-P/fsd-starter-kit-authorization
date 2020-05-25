@@ -17,6 +17,13 @@ export const communicationReducer = combineReducers<NS.IReduxState['communicatio
     'AUTHORIZATION:SIGN_IN_FAIL',
     initial.communication.signIn,
   ),
+  resetPassword: makeCommunicationReducer<NS.IResetPassword, NS.IResetPasswordSuccess,
+  NS.IResetPasswordFail>(
+    'AUTHORIZATION:RESET_PASSWORD',
+    'AUTHORIZATION:RESET_PASSWORD_SUCCESS',
+    'AUTHORIZATION:RESET_PASSWORD_FAIL',
+    initial.communication.resetPassword,
+  ),
   stateChanged: makeCommunicationReducer<
   NS.IStateChanged,
   NS.IStateChangedSuccess,

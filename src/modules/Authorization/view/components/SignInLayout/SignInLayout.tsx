@@ -5,15 +5,10 @@ import { History } from 'history';
 import * as features from 'features';
 
 import { routes } from '../../../../Profile/routes';
-// import { withAsyncFeatures } from 'core';
 import { withAsyncFeatures } from '../../../../../core';
 import { Layout } from '../../../../shared';
 
 import './SignInLayout.scss';
-
-// interface IState {
-//
-// }
 
 interface IFeatureProps {
   authorizationFeatureEntry: features.authorization.Entry;
@@ -24,7 +19,6 @@ type IProps = IFeatureProps;
 
 const b = block('sign-in-layout');
 
-// eslint-disable-next-line react/prefer-stateless-function
 class SignInLayoutComponent extends React.Component<IProps> {
   render() {
     const { authorizationFeatureEntry: { containers } } = this.props;

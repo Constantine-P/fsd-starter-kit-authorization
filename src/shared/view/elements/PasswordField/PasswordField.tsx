@@ -59,6 +59,7 @@ class PasswordField extends React.Component<IProps> {
             value={value}
             onChange={this.handleChange}
             onBlur={this.handleBlur}
+            required
           />
 
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -87,11 +88,15 @@ class PasswordField extends React.Component<IProps> {
   }
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { onChange, setValidity } = this.props;
+    const { onChange, setValidity, validate } = this.props;
     const { value } = event.target;
     onChange(value);
     this.setState(isPasswordValid(value));
-    if (setValidity) setValidity(isPasswordValid(value).isValid);
+    if (setValidity) {
+      setValidity(
+        (validate) ? isPasswordValid(value).isValid : true,
+      );
+    }
   };
 
   handlePasswordEyeToggle = () => {

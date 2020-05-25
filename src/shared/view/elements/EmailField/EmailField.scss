@@ -23,6 +23,8 @@
 
     &_valid {
       border: 0.5rem solid map-get($colors, valid) !important;
+      background-color: map-get($colors, valid-light);
+      color: map-get($colors, valid);
     }
 
     &_invalid {

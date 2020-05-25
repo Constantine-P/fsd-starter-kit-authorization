@@ -9,7 +9,7 @@ const b = block('sign-up-card');
 
 interface IProps {
   onSubmit: (email: string, password: string) => void;
-  // errorMessage: string;
+  errorMessage: string;
 }
 
 interface IState {
@@ -28,6 +28,7 @@ class SignUpCard extends React.Component<IProps> {
   };
 
   render() {
+    const { errorMessage } = this.props;
     const { email, password } = this.state;
     return (
       <form className={b()} onSubmit={this.handleSubmit}>
@@ -41,11 +42,14 @@ class SignUpCard extends React.Component<IProps> {
 
           <h1 className={b('title')}>Регистрация</h1>
 
+          <p className={b('error-message')}>{errorMessage}</p>
+
           <div className={b('input')}>
             <EmailField
               value={email}
               onChange={this.handleEmailChange}
               setValidity={this.setEmailValidity}
+              validate
             />
           </div>
 

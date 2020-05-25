@@ -1,4 +1,4 @@
-const firebaseConfig = { /* COPY THE ACTUAL CONFIG FROM FIREBASE CONSOLE */
+const firebaseConfig = {
   apiKey: 'AIzaSyDqa1kGEy1iEwftosVUt_5mr9VOiiZm_hI',
   authDomain: 'react-authorization.firebaseapp.com',
   databaseURL: 'https://react-authorization.firebaseio.com',

@@ -8,6 +8,7 @@
   background-color: map-get($colors, button);
   color: map-get($colors, font-button);
   font-size: 14rem;
+  cursor: pointer;
   transition: $anim-duration;
 
   &:hover {

@@ -11,6 +11,7 @@ interface IProps {
   value: string;
   onChange: (value: string) => void;
   setValidity?: (value: boolean | null) => void;
+  validate?: boolean;
 }
 
 interface IState {
@@ -25,12 +26,12 @@ class EmailField extends React.Component<IProps, IState> {
   };
 
   render() {
-    const { value } = this.props;
+    const { value, validate } = this.props;
     const { isValid, message } = this.state;
     // eslint-disable-next-line no-nested-ternary
-    const inputMode = (isValid === true)
+    const inputMode = (isValid === true && validate)
       ? { valid: true }
-      : (isValid === false)
+      : (isValid === false && validate)
         ? { invalid: true }
         : { invalid: false };
 
@@ -39,13 +40,9 @@ class EmailField extends React.Component<IProps, IState> {
       <label className={b()}>
         <h2 className={b('title')}>Email</h2>
         {
-          isValid
-            ? null
-            : (
-              <span className={b('error-message')}>
-                {message}
-              </span>
-            )
+          !isValid && validate
+            ? <span className={b('error-message')}>{message}</span>
+            : null
         }
         <input
           className={b('input', inputMode)}
@@ -61,11 +58,15 @@ class EmailField extends React.Component<IProps, IState> {
   }
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { onChange, setValidity } = this.props;
+    const { onChange, setValidity, validate } = this.props;
     const { value } = event.target;
     onChange(value);
     this.setState(isEmailValid(value));
-    if (setValidity) setValidity(isEmailValid(value).isValid);
+    if (setValidity) {
+      setValidity(
+        (validate) ? isEmailValid(value).isValid : true,
+      );
+    }
   };
 
   handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {

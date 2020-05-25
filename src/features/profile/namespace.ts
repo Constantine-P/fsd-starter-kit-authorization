@@ -15,7 +15,7 @@ export type ISaveProfile = IAction<'PROFILE:SAVE_PROFILE', IProfileEditFormField
 
 export type ISetUser = IAction<'PROFILE:SET_USER', string>;
 
-export type IStateChanged = IAction<'PROFILE:STATE_CHANGED', {setUser: (user: string) => any}>;
+export type IStateChanged = IAction<'PROFILE:STATE_CHANGED', {setUser: (user: string) => void}>;
 export type IStateChangedSuccess = IAction<'PROFILE:STATE_CHANGED_SUCCESS', void>;
 export type IStateChangedFail = IPlainFailAction<'PROFILE:STATE_CHANGED_FAIL'>;
 

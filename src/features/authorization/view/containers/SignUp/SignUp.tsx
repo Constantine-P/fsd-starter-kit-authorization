@@ -20,7 +20,7 @@ const mapDispatch = {
 };
 
 interface IStateProps {
-  error: string | {code: string};
+  error: string;
   user: string;
 }
 
@@ -50,9 +50,11 @@ class SignUpComponent extends React.Component<IProps> {
   }
 
   public render() {
+    const { error } = this.props;
     return (
       <SignUpCard
         onSubmit={this.handleSignUp}
+        errorMessage={error.toString()}
       />
     );
   }

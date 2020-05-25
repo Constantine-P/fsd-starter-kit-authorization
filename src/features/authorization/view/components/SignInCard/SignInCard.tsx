@@ -9,7 +9,7 @@ const b = block('sign-in-card');
 
 interface IProps {
   onSubmit: (email: string, password: string) => void;
-  // errorMessage: string;
+  errorMessage: string;
 }
 
 interface IState {
@@ -28,19 +28,26 @@ class SignInCard extends React.Component<IProps> {
   };
 
   render() {
+    const { errorMessage } = this.props;
     const { email, password } = this.state;
     return (
       <form className={b()} onSubmit={this.handleSubmit}>
         <NavLink className={b('sign-up-link')} to="/authorization/signUp">Зарегистрироваться ➞</NavLink>
         <div className={b('content')}>
+
           <h1 className={b('title')}>Войти</h1>
+
+          <p className={b('error-message')}>{errorMessage}</p>
+
           <div className={b('input')}>
             <EmailField
               value={email}
               onChange={this.handleEmailChange}
               setValidity={this.setEmailValidity}
+              validate
             />
           </div>
+
           <div className={b('input')}>
             <PasswordField
               value={password}
@@ -48,10 +55,13 @@ class SignInCard extends React.Component<IProps> {
               setValidity={this.setPasswordValidity}
             />
           </div>
-          <NavLink className={b('restore-link')} to="/authorization/restore">Восстановить пароль ➞</NavLink>
+
+          <NavLink className={b('reset-link')} to="/authorization/resetPassword">Восстановить пароль ➞</NavLink>
+
           <div className={b('submit-button')}>
             <Button value="Войти" />
           </div>
+
         </div>
       </form>
     );
@@ -73,7 +83,9 @@ class SignInCard extends React.Component<IProps> {
     event.preventDefault();
     const { onSubmit } = this.props;
     const { email, password, isEmailValid, isPasswordValid } = this.state;
-    if (isEmailValid && isPasswordValid) onSubmit(email, password);
+    if (isEmailValid && isPasswordValid) {
+      onSubmit(email, password);
+    }
   };
 
   private setEmailValidity = (value: boolean) => {

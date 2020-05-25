@@ -1,18 +1,6 @@
 import React from 'react';
 import block from 'bem-cn';
 
-// import * as features from 'features';
-
-// import './Layout.scss';
-
-// interface IOwnProps {
-//   title: string;
-// }
-//
-// interface IFeatureProps {
-//   profileFeatureEntry: features.profile.Entry;
-// }
-
 interface IProps {
   children: React.ReactNode;
 }

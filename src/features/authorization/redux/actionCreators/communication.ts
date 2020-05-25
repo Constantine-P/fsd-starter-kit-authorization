@@ -23,6 +23,17 @@ export const {
 );
 
 export const {
+  execute: resetPassword,
+  completed: resetPasswordSuccess,
+  failed: resetPasswordFail,
+} = makeCommunicationActionCreators<NS.IResetPassword, NS.IResetPasswordSuccess,
+NS.IResetPasswordFail>(
+  'AUTHORIZATION:RESET_PASSWORD',
+  'AUTHORIZATION:RESET_PASSWORD_SUCCESS',
+  'AUTHORIZATION:RESET_PASSWORD_FAIL',
+);
+
+export const {
   execute: stateChanged,
   completed: stateChangedSuccess,
   failed: stateChangedFail,

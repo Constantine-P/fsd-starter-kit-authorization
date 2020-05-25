@@ -10,7 +10,7 @@
   color: map-get($colors, main);
 
   &__sign-up-link,
-  &__restore-link {
+  &__reset-link {
     display: flex;
     align-self: flex-end;
     margin: 20rem 25rem 0 0;
@@ -29,8 +29,15 @@
   &__title {
     margin: 0;
     text-align: center;
-    font-weight: normal;
+    font-weight: bold;
     font-size: 22rem;
+  }
+
+  &__error-message {
+    margin: 10rem 0 0 0;
+    color: map-get($colors, error);
+    text-align: center;
+    font-size: 15rem;
   }
 
   &__input {

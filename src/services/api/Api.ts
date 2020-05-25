@@ -5,25 +5,29 @@ import 'firebase/auth';
 
 import { firebaseConfig } from './firebaseConfig';
 
+import UserCredential = firebase.auth.UserCredential;
+
 class Api {
   constructor() {
     firebase.initializeApp(firebaseConfig);
     firebase.auth();
   }
 
-  public async signIn(email: string, password: string) {
-    return firebase.auth().signInWithEmailAndPassword(email, password);
-  }
+  public signIn = async (email: string, password: string): Promise<UserCredential> =>
+    firebase.auth().signInWithEmailAndPassword(email, password);
 
-  public async signOut() {
-    return firebase.auth().signOut();
-  }
+  public signOut = async (): Promise<void> => {
+    firebase.auth().signOut();
+  };
 
-  public async signUp(email: string, password: string) {
-    return firebase.auth().createUserWithEmailAndPassword(email, password);
-  }
+  public signUp = async (email: string, password: string): Promise<UserCredential> =>
+    firebase.auth().createUserWithEmailAndPassword(email, password);
 
-  public async stateChanged(setUser: (user: string) => void) {
+  public resetPassword = async (email: string): Promise<void> => {
+    await firebase.auth().sendPasswordResetEmail(email);
+  };
+
+  public async stateChanged(setUser: (user: string) => void): Promise<void> {
     firebase.auth().onAuthStateChanged(user => {
       if (user && user.email) {
         setUser(user.email);
